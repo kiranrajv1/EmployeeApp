@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h2 th:text="${employee.id} != null ? 'Edit Employee' : 'Add Employee'"></h2>
+        <form th:action="@{/employees/save}" th:object="${employee}" method="post">
+            <input type="hidden" th:field="*{id}">
+             <div class="mb-3">
+                <label>Name</label>
+                <input type="text" th:field="*{name}" class="form-control" required>
+                <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+            </div>
+             <div class="mb-3">
+                <label>Email</label>
+                <input type="email" th:field="*{email}" class="form-control" required>
+                <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+            </div>
+ 
+            <div class="mb-3">
+                <label>Department</label>
+                <input type="text" th:field="*{department}" class="form-control" required>
+                <span class="text-danger" th:if="${#fields.hasErrors('department')}" th:errors="*{department}"></span>
+            </div>
+ 
+            <div class="mb-3">
+                <label>Salary</label>
+                <input type="number" th:field="*{salary}" class="form-control" required>
+                <span class="text-danger" th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}"></span>
+            </div>
+ <!--  
+            <div class="mb-3">
+                <label>Email</label>
+                <input type="email" th:field="*{email}" class="form-control" required>
+            </div>
+  
+            <div class="mb-3">
+                <label>Department</label>
+                <input type="text" th:field="*{department}" class="form-control" required>
+            </div>
+ 
+            <div class="mb-3">
+                <label>Salary</label>
+                <input type="number" th:field="*{salary}" class="form-control" required>
+            </div>
+ -->
+            <button type="submit" class="btn btn-success">Save</button>
+            <a th:href="@{/employees}" class="btn btn-secondary">Cancel</a>
+            
+        </form>
+    </div>
+</body>
+</html>
