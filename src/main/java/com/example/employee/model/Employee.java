@@ -34,6 +34,15 @@ public class Employee {
     @Min(value = 10000, message = "Salary must be at least 10,000")
     private double salary;
 
+    private String address;
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -77,8 +86,10 @@ public class Employee {
 	@Override
 	public String toString() {
 		return "Employee [id=" + id + ", name=" + name + ", email=" + email + ", department=" + department + ", salary="
-				+ salary + "]";
+				+ salary + ", address=" + address + "]";
 	}
+
+
     
     
 }

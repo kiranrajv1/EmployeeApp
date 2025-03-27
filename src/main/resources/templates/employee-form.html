@@ -33,6 +33,11 @@
                 <input type="number" th:field="*{salary}" class="form-control" required>
                 <span class="text-danger" th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}"></span>
             </div>
+            <div class="mb-3">
+                <label>Address</label>
+                <input type="text" th:field="*{address}" class="form-control" required>
+                <span class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
+            </div>
  <!--  
             <div class="mb-3">
                 <label>Email</label>

@@ -14,6 +14,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	private EmployeeRepository employeeRepository;
 		
 	public Employee saveEmployee(Employee employee) {
+	
 		return employeeRepository.save(employee);
 	}
 
@@ -31,6 +32,7 @@ public class EmployeeServiceImpl implements EmployeeService{
         employee.setEmail(employeeDetails.getEmail());
         employee.setDepartment(employeeDetails.getDepartment());
         employee.setSalary(employeeDetails.getSalary());
+        employee.setAddress(employeeDetails.getAddress());
         return employeeRepository.save(employee);
     }
 	

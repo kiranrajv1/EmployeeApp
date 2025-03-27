@@ -35,12 +35,7 @@ public class EmployeeViewController {
         return "employee-form";
     }
  
-    // Save employee
-//    @PostMapping("/save")
-//    public String saveEmployee(@ModelAttribute Employee employee) {
-//        employeeService.saveEmployee(employee);
-//        return "redirect:/employees";
-//    }
+
  
     
     @PostMapping("/save")
@@ -59,11 +54,7 @@ public class EmployeeViewController {
         return "employee-form"; // Reusing the same form for edit
     }
      
-//    @PostMapping("/update/{id}")
-//    public String updateEmployee(@PathVariable Long id, @ModelAttribute Employee employee) {
-//        employeeService.updateEmployee(id, employee);
-//        return "redirect:/employees";
-//    }
+
     
     @PostMapping("/update/{id}")
     public String updateEmployee(@PathVariable Long id, @Valid @ModelAttribute Employee employee, BindingResult result) {
