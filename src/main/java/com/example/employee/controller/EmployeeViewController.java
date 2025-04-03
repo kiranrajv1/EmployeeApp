@@ -3,6 +3,8 @@ package com.example.employee.controller;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+
 import com.example.employee.model.Employee;
 import com.example.employee.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,29 +38,26 @@ public class EmployeeViewController {
 		model.addAttribute("employee", new Employee());
 		return "employee-form";
 	}
-
+	
 	@GetMapping("/search")
 	public String searchEmployees(@RequestParam(required = false) String department,
 			@RequestParam(required = false) String location, @RequestParam(defaultValue = "0") int page,
-			@RequestParam(defaultValue = "5") int size, Model model) {
-		System.out.println(page);
-		System.out.println(size);
-
-		Pageable pageable = PageRequest.of(page, size);		
+			@RequestParam(defaultValue = "5") int size, @RequestParam(defaultValue = "name") String sortBy,
+			@RequestParam(defaultValue = "asc") String sortDir, Model model) {
+		Sort sort = Sort.by(sortDir.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy);
+		Pageable pageable = PageRequest.of(page, size, sort);
 		Page<Employee> employeePage = employeeService.searchEmployees(department, location, pageable);
-		model.addAttribute("employeePage", employeePage);
 		model.addAttribute("employeePage", employeePage);
 		model.addAttribute("employees", employeePage.getContent());
 		model.addAttribute("currentPage", page);
 		model.addAttribute("totalPages", employeePage.getTotalPages());
 		model.addAttribute("department", department);
 		model.addAttribute("location", location);
-		System.out.println(employeePage);
-		System.out.println(employeePage.getContent());
-		System.out.println(page);
-		System.out.println(employeePage.getTotalPages());
+		model.addAttribute("sortField", sortBy);
+		model.addAttribute("sortDir", sortDir);
 		return "employee-search";
 	}
+	
 
 	@PostMapping("/save")
 	public String saveEmployee(@Valid @ModelAttribute Employee employee, BindingResult result, Model model) {
@@ -92,5 +91,8 @@ public class EmployeeViewController {
 		employeeService.deleteEmployee(id);
 		return "redirect:/employees";
 	}
+	
+	
+
 
 }

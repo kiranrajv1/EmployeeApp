@@ -1,73 +1,76 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Employee Search</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Employee Search</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
 </head>
 <body>
-	<div class="container">
-		
-		<h6>Department: Flight Operation, Cabin crew, Ground Operation,
-			Customer Service, Marketing, HR, IT, Finance, Sales</h6>
-		<h6>Base Location: Chennai, Mumbai, Delhi, Bangalore, Hyderabad</h6>
+    <div class="container">
+        <h6>Department: Flight Operation, Cabin crew, Ground Operation, Customer Service, Marketing, HR, IT, Finance, Sales</h6>
+        <h6>Base Location: Chennai, Mumbai, Delhi, Bangalore, Hyderabad</h6>
 
+        <form th:action="@{/employees/search}" method="get">
+            <label for="department">Department:</label>
+            <input type="text" id="department" name="department" th:value="${department}" />
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" th:value="${location}" />
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        <a th:href="@{/employees/new}" class="btn btn-secondary">New Employee</a>
+        <a th:href="@{/employees}" class="btn btn-primary">Back</a>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                <th>
+                    <a th:href="@{'/employees/search?page=' + ${currentPage}  + '&department=' + ${department ?: ''} + '&location=' + ${location ?: ''}+ '&sortBy=id&sortDir=' + ${sortDir == 'asc' ? 'desc' : 'asc'}}"> Id
+                            <i class="fas" th:classappend="${sortField == 'id' ? (sortDir == 'asc' ? 'fa-arrow-up' : 'fa-arrow-down') : ''}"></i>
+                        </a>
+                    </th>
+                    <th>
+                        <a th:href="@{'/employees/search?page=' + ${currentPage} +  '&department=' + ${department ?: ''} + '&location=' + ${location ?: ''}+ '&sortBy=name&sortDir=' + ${sortDir == 'asc' ? 'desc' : 'asc'}}">
+                            Name
+                            <i class="fas" th:classappend="${sortField == 'name' ? (sortDir == 'asc' ? 'fa-arrow-up' : 'fa-arrow-down') : ''}"></i>
+                        </a>
+                    </th>
+                    <th>Email</th>
+                    <th>Department</th>
+                    <th>
+                    <a th:href="@{'/employees/search?page=' + ${currentPage}  + '&department=' + ${department ?: ''} + '&location=' + ${location ?: ''}+ '&sortBy=salary&sortDir=' + ${sortDir == 'asc' ? 'desc' : 'asc'}}">    Salary
+                            <i class="fas" th:classappend="${sortField == 'salary' ? (sortDir == 'asc' ? 'fa-arrow-up' : 'fa-arrow-down') : ''}"></i>
+                        </a>
+                    </th>
+                    <th>Address</th>
+                    <th>Base Location</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="employee : ${employees}">
+                    <td th:text="${employee.id}"></td>
+                    <td th:text="${employee.name}"></td>
+                    <td th:text="${employee.email}"></td>
+                    <td th:text="${employee.department}"></td>
+                    <td th:text="${employee.salary}"></td>
+                    <td th:text="${employee.address}"></td>
+                    <td th:text="${employee.location}"></td>
+                    <td>
+                        <a th:href="@{/employees/edit/{id}(id=${employee.id})}" class="btn btn-warning">Edit</a>
+                        <a th:href="@{/employees/delete/{id}(id=${employee.id})}" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <a th:if="${currentPage > 0}" th:href="@{/employees/search(page=${currentPage - 1}, department=${department ?: ''}, location=${location ?: ''}, sortBy=${sortField}, sortDir=${sortDir})}">Previous</a>
+            <span th:text="'Page ' + (${currentPage} + 1) + ' of ' + ${totalPages}"></span>
+            <a th:if="${currentPage + 1 < totalPages}" th:href="@{/employees/search(page=${currentPage + 1}, department=${department ?: ''}, location=${location ?: ''}, sortBy=${sortField}, sortDir=${sortDir})}">Next</a>
+        </div>
+        
 
-		<form th:action="@{/employees/search}" method="get">
-			<label for="department">Department:</label> <input type="text"
-				id="department" name="department" th:value="${department}" /> <label
-				for="location">Location:</label> <input type="text" id="location"
-				name="location" th:value="${location}" />
-
-			<button type="submit" class="btn btn-primary">Search</button>
-		</form>
-		<a th:href="@{/employees/new}" class="btn btn-secondary">New
-			Employee</a>
-			<a th:href="@{/employees}" class="btn btn-primary">Back</a>
-		<table class="table table-bordered">
-			<thead>
-				<tr>
-					<th>ID</th>
-					<th>Name</th>
-					<th>Email</th>
-					<th>Department</th>
-					<th>Salary</th>
-					<th>Address</th>
-					<th>Base Location</th>
-					<th>Actions</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="employee : ${employees}">
-					<td th:text="${employee.id}"></td>
-					<td th:text="${employee.name}"></td>
-					<td th:text="${employee.email}"></td>
-					<td th:text="${employee.department}"></td>
-					<td th:text="${employee.salary}"></td>
-					<td th:text="${employee.address}"></td>
-					<td th:text="${employee.location}"></td>
-					<td><a th:href="@{/employees/edit/{id}(id=${employee.id})}"
-						class="btn btn-warning">Edit</a> <a
-						th:href="@{/employees/delete/{id}(id=${employee.id})}"
-						class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-		<div>
-			<a th:if="${currentPage > 0}"
-				th:href="@{/employees/search(page=${currentPage - 1}, department=${department ?: ''}, location=${location ?: ''})}">Previous</a>
-
-			<span
-				th:text="'Page ' + (${currentPage} + 1) + ' of ' + ${totalPages}"></span>
-
-			<a th:if="${currentPage + 1 < totalPages}"
-				th:href="@{/employees/search(page=${currentPage + 1}, department=${department ?: ''}, location=${location ?: ''})}">Next</a>
-		</div>
-
-
-	</div>
+    </div>
 </body>
 </html>

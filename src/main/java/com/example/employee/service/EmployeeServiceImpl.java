@@ -3,6 +3,7 @@ package com.example.employee.service;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.employee.model.Employee;
@@ -57,19 +58,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	public Page<Employee> searchEmployees(String department, String location, Pageable pageable) {
-		if (department != null && !department.isEmpty() && location != null && !location.isEmpty()) {
-			return employeeRepository.findByDepartmentAndLocation(department, location, pageable);
-		} else if (department != null && !department.isEmpty()) {
-			return employeeRepository.findByDepartment(department, pageable);
-		} else if (location != null && !location.isEmpty()) {
-			return employeeRepository.findByLocation(location, pageable);
-		} else {
-			return employeeRepository.findAll(pageable);
-		}
-	}
-
-
-
+        if (department != null && !department.isEmpty() && location != null && !location.isEmpty()) {
+            return employeeRepository.findByDepartmentAndLocation(department, location, pageable);
+        } else if (department != null && !department.isEmpty()) {
+           return employeeRepository.findByDepartment(department, pageable);
+        } else if (location != null && !location.isEmpty()) {
+            return employeeRepository.findByLocation(location, pageable);
+        } else {
+            return employeeRepository.findAll(pageable);
+        }
+    }
 
 
 }
