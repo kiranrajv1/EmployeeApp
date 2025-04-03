@@ -38,26 +38,15 @@
                 <input type="text" th:field="*{address}" class="form-control" required>
                 <span class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
             </div>
- <!--  
             <div class="mb-3">
-                <label>Email</label>
-                <input type="email" th:field="*{email}" class="form-control" required>
+                <label>Office Location</label>
+                <input type="text" th:field="*{location}" class="form-control" required>
+                <span class="text-danger" th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></span>
             </div>
-  
-            <div class="mb-3">
-                <label>Department</label>
-                <input type="text" th:field="*{department}" class="form-control" required>
-            </div>
- 
-            <div class="mb-3">
-                <label>Salary</label>
-                <input type="number" th:field="*{salary}" class="form-control" required>
-            </div>
- -->
             <button type="submit" class="btn btn-success">Save</button>
             <a th:href="@{/employees}" class="btn btn-secondary">Cancel</a>
             
-        </form>
+        </form>  
     </div>
 </body>
 </html>

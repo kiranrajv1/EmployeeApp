@@ -34,7 +34,20 @@ public class Employee {
     @Min(value = 10000, message = "Salary must be at least 10,000")
     private double salary;
 
+    
     private String address;
+    
+    @NotBlank(message = "Office location is required")
+    private String location;
+    
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
 	public String getAddress() {
 		return address;
 	}
@@ -86,8 +99,10 @@ public class Employee {
 	@Override
 	public String toString() {
 		return "Employee [id=" + id + ", name=" + name + ", email=" + email + ", department=" + department + ", salary="
-				+ salary + ", address=" + address + "]";
+				+ salary + ", address=" + address + ", location=" + location + "]";
 	}
+
+	
 
 
     

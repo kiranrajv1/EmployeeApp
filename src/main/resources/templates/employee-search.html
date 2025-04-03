@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Employee Management</title>
+<title>Employee Search</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet"
@@ -9,12 +9,7 @@
 </head>
 <body>
 	<div class="container">
-		<h2>
-			Employee List(Total Employee:<span th:text="${totalEmployees}"></span>)
-			<a th:href="@{/employees/new}" class="btn btn-secondary">New
-				Employee</a>
-		</h2>
-		<!-- <h2>Employee List (Total Employees: <span th:text="${employeePage.totalElements}"></span>)</h2> -->
+		
 		<h6>Department: Flight Operation, Cabin crew, Ground Operation,
 			Customer Service, Marketing, HR, IT, Finance, Sales</h6>
 		<h6>Base Location: Chennai, Mumbai, Delhi, Bangalore, Hyderabad</h6>
@@ -28,7 +23,9 @@
 
 			<button type="submit" class="btn btn-primary">Search</button>
 		</form>
-
+		<a th:href="@{/employees/new}" class="btn btn-secondary">New
+			Employee</a>
+			<a th:href="@{/employees}" class="btn btn-primary">Back</a>
 		<table class="table table-bordered">
 			<thead>
 				<tr>
@@ -59,6 +56,18 @@
 				</tr>
 			</tbody>
 		</table>
+		<div>
+			<a th:if="${currentPage > 0}"
+				th:href="@{/employees/search(page=${currentPage - 1}, department=${department ?: ''}, location=${location ?: ''})}">Previous</a>
+
+			<span
+				th:text="'Page ' + (${currentPage} + 1) + ' of ' + ${totalPages}"></span>
+
+			<a th:if="${currentPage + 1 < totalPages}"
+				th:href="@{/employees/search(page=${currentPage + 1}, department=${department ?: ''}, location=${location ?: ''})}">Next</a>
+		</div>
+
+
 	</div>
 </body>
 </html>
