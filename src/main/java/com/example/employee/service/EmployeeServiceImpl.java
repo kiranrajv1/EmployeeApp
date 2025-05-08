@@ -1,6 +1,9 @@
 package com.example.employee.service;
 
 import java.util.List;
+
+import java.time.LocalDateTime;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -8,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.employee.model.Employee;
 import com.example.employee.repository.EmployeeRepository;
+
+
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -17,6 +22,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	public Employee saveEmployee(Employee employee) {
 
+		if (employee.getId() == null) {
+			employee.setCreatedDate(LocalDateTime.now());
+		}
+
+        //employee.setCreatedDate(LocalDateTime.now());
+        employee.setUpdatedDate(LocalDateTime.now());
 		return employeeRepository.save(employee);
 	}
 
@@ -35,6 +46,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		employee.setSalary(employeeDetails.getSalary());
 		employee.setAddress(employeeDetails.getAddress());
 		employee.setLocation(employeeDetails.getLocation());
+		employee.setUpdatedDate(LocalDateTime.now());
 		return employeeRepository.save(employee);
 	}
 
@@ -71,3 +83,5 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
 }
+
+

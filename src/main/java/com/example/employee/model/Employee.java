@@ -1,6 +1,8 @@
 package com.example.employee.model;
 
 import jakarta.persistence.Entity;
+
+import java.time.LocalDateTime;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -33,6 +35,10 @@ public class Employee {
     @NotNull(message = "Salary is required")
     @Min(value = 10000, message = "Salary must be at least 10,000")
     private double salary;
+
+
+    private LocalDateTime createdDate;
+    private LocalDateTime updatedDate;
 
     
     private String address;
@@ -96,10 +102,28 @@ public class Employee {
 		this.salary = salary;
 	}
 
+	
+	public LocalDateTime getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(LocalDateTime createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public LocalDateTime getUpdatedDate() {
+		return updatedDate;
+	}
+
+	public void setUpdatedDate(LocalDateTime updatedDate) {
+		this.updatedDate = updatedDate;
+	}
+
 	@Override
 	public String toString() {
 		return "Employee [id=" + id + ", name=" + name + ", email=" + email + ", department=" + department + ", salary="
-				+ salary + ", address=" + address + ", location=" + location + "]";
+				+ salary + ", createdDate=" + createdDate + ", updatedDate=" + updatedDate + ", address=" + address
+				+ ", location=" + location + "]";
 	}
 
 	

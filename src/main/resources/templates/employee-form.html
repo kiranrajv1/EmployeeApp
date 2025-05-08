@@ -43,7 +43,16 @@
                 <input type="text" th:field="*{location}" class="form-control" required>
                 <span class="text-danger" th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></span>
             </div>
-            <button type="submit" class="btn btn-success">Save</button>
+			<div class="mb-3">
+				<label>Created Date</label> <input type="text"
+					th:field="*{createdDate}" class="form-control" readonly>
+			</div>
+			<div class="mb-3">
+				<label>Updated Date</label> <input type="text"
+					th:field="*{updatedDate}" class="form-control" readonly>
+			</div>
+
+			<button type="submit" class="btn btn-success">Save</button>
             <a th:href="@{/employees}" class="btn btn-secondary">Cancel</a>
             
         </form>  

@@ -29,8 +29,17 @@ public class EmployeeViewController {
 		model.addAttribute("totalEmployees", totalEmployees);
 		List<Employee> employees = employeeService.getAllEmployees();
 		model.addAttribute("employees", employees);
+		//Method Reference
+	    employees.forEach(System.out::println);
 		return "employee-list";
 	}
+//	@GetMapping
+//	public String listEmployees(Model model) {
+//	    model.addAttribute("totalEmployees", employeeService.getTotalEmployees());
+//	    model.addAttribute("employees", employeeService.getAllEmployees());
+//
+//	    return "employee-list";
+//	}
 
 	// Show add employee form
 	@GetMapping("/new")

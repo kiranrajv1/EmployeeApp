@@ -37,6 +37,8 @@
 					<th>Salary</th>
 					<th>Address</th>
 					<th>Base Location</th>
+					<th>CreatedDate</th>
+					<th>UpdateDate</th>
 					<th>Actions</th>
 				</tr>
 			</thead>
@@ -49,6 +51,9 @@
 					<td th:text="${employee.salary}"></td>
 					<td th:text="${employee.address}"></td>
 					<td th:text="${employee.location}"></td>
+					<td th:text="${employee.createdDate}"></td>
+                    <td th:text="${employee.updatedDate}"></td>
+					
 					<td><a th:href="@{/employees/edit/{id}(id=${employee.id})}"
 						class="btn btn-warning">Edit</a> <a
 						th:href="@{/employees/delete/{id}(id=${employee.id})}"
